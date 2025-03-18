@@ -1,5 +1,6 @@
 # Schema for Synonymous;
 
+# install later - in module or outside ?
 # using extension auth;
 
 module default {
