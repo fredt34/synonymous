@@ -1,75 +1,78 @@
 # Schema for Synonymous;
 
-using extension auth;
+# using extension auth;
 
-abstract link authored_with_details {
-  details: string;
-  modified: datetime {
-    rewrite update using (datetime_of_statement())
+module default {
+  
+  abstract link authored_with_details {
+    details: string;
+    modified: datetime {
+      rewrite update using (datetime_of_statement())
+    }
   }
-}
-
-scalar type EventType extending enum<Create, Read, Update, Delete>;
-
-# Types
-
-type Word {
-  required word: string;
-  details: string;
-
-  required language: Language;
-  required author: User {
-    extending authored_with_details;
-  };
-  required multi validators: User {
-    extending authored_with_details;
-  };
-
-  multi like: Like;
-
-  #created: datetime {
-  #  rewrite insert using (datetime_of_statement())
-  #}
-  #modified: datetime {
-  #  rewrite update using (datetime_of_statement())
-  #}
-
-  index on (str_lower(.word));
-}
-
-type Language {
-  required code: string;
-  required title: string;
-  required en_titile : string;
-  details: string;
-}
-
-type User {
-  email: str;
-  name: str;
-  multi languages: Language;
-
-  multi roles: Role;
-
-  # required identity: ext::auth::Identity {
-  #    constraint exclusive;
-  # };
-}
-
-type Role {
-  name: str;
-  details: str;
-}
-
-type Like {
-  level: integer;
-  author: User;
-}
-
-type Event {
-  author: User;
-  type: EventType;
-  date : datetime {
-    rewrite insert using (datetime_of_statement())
+  
+  scalar type EventType extending enum<Create, Read, Update, Delete>;
+  
+  # Types
+  
+  type Word {
+    required word: string;
+    details: string;
+  
+    required language: Language;
+    required author: User {
+      extending authored_with_details;
+    };
+    required multi validators: User {
+      extending authored_with_details;
+    };
+  
+    multi like: Like;
+  
+    #created: datetime {
+    #  rewrite insert using (datetime_of_statement())
+    #}
+    #modified: datetime {
+    #  rewrite update using (datetime_of_statement())
+    #}
+  
+    index on (str_lower(.word));
+  }
+  
+  type Language {
+    required code: string;
+    required title: string;
+    required en_titile : string;
+    details: string;
+  }
+  
+  type User {
+    email: str;
+    name: str;
+    multi languages: Language;
+  
+    multi roles: Role;
+  
+    # required identity: ext::auth::Identity {
+    #    constraint exclusive;
+    # };
+  }
+  
+  type Role {
+    name: str;
+    details: str;
+  }
+  
+  type Like {
+    level: integer;
+    author: User;
+  }
+  
+  type Event {
+    author: User;
+    type: EventType;
+    date : datetime {
+      rewrite insert using (datetime_of_statement())
+    }
   }
 }
