@@ -1,6 +1,2 @@
 [instance]
 server-version = "6.1"
-
-[project]
-# update test
-schema-dir = "db/schema"
