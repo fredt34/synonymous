@@ -1,3 +1,4 @@
-# cleaned
+watch = []
+
 [instance]
-server-version = "6.1"
+server-version = "=6.1"
