@@ -17,6 +17,7 @@ module default {
     details: str;
   }
   
+  # updated
   type User {
     email: str;
     name: str;
