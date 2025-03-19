@@ -17,7 +17,7 @@ module default {
     details: str;
   }
   
-  # updated
+  # updated - last test
   type User {
     email: str;
     name: str;
