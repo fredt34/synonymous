@@ -7,7 +7,7 @@ module default {
     # }
   }
 
-   # for Logs  
+   # for Logs - or tests
    scalar type EventType extending enum<`Create`, `Read`, `Update`, `Delete`>;
 
   type Language {
