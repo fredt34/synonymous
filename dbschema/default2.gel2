@@ -1,0 +1,74 @@
+module default {
+  
+  abstract link authored_with_details {
+    details: str;
+    modified: datetime {
+      rewrite update using (datetime_of_statement())
+    }
+  }
+  
+  scalar type EventType extending enum<`Create`, `Read`, `Update`, `Delete`>;
+  
+  # Types
+  
+  type Word {
+    required word: str;
+    details: str;
+  
+    required language: Language;
+    required author: User {
+      extending authored_with_details;
+    };
+    required multi validators: User {
+      extending authored_with_details;
+    };
+  
+    multi mark: Mark;
+  
+    #created: datetime {
+    #  rewrite insert using (datetime_of_statement())
+    #}
+    #modified: datetime {
+    #  rewrite update using (datetime_of_statement())
+    #}
+  
+    index on (str_lower(.word));
+  }
+  
+  type Language {
+    required code: str;
+    required title: str;
+    required en_title : str;
+    details: str;
+  }
+  
+  type User {
+    email: str;
+    name: str;
+    multi languages: Language;
+  
+    multi roles: Role;
+  
+    # required identity: ext::auth::Identity {
+    #    constraint exclusive;
+    # };
+  }
+  
+  type Role {
+    name: str;
+    details: str;
+  }
+  
+  type Mark {
+    level: int32;
+    author: User;
+  }
+  
+  type Event {
+    author: User;
+    type: EventType;
+    date : datetime {
+      rewrite insert using (datetime_of_statement())
+    }
+  }
+}
