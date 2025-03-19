@@ -6,7 +6,8 @@ module default {
     #   rewrite update using (datetime_of_statement())
     # }
   }
-  
+
+   # for Logs  
    scalar type EventType extending enum<`Create`, `Read`, `Update`, `Delete`>;
 
   type Language {
