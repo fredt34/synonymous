@@ -1,50 +1,19 @@
-# Schema for Synonymous;
-
-# install later - in module or outside ?
-# using extension auth;
-
 module default {
-  
+
   abstract link authored_with_details {
-    details: string;
-    modified: datetime {
-      rewrite update using (datetime_of_statement())
-    }
+    details: str;
+    # modified: datetime {
+    #   rewrite update using (datetime_of_statement())
+    # }
   }
   
-  scalar type EventType extending enum<Create, Read, Update, Delete>;
-  
-  # Types
-  
-  type Word {
-    required word: string;
-    details: string;
-  
-    required language: Language;
-    required author: User {
-      extending authored_with_details;
-    };
-    required multi validators: User {
-      extending authored_with_details;
-    };
-  
-    multi like: Like;
-  
-    #created: datetime {
-    #  rewrite insert using (datetime_of_statement())
-    #}
-    #modified: datetime {
-    #  rewrite update using (datetime_of_statement())
-    #}
-  
-    index on (str_lower(.word));
-  }
-  
+   scalar type EventType extending enum<`Create`, `Read`, `Update`, `Delete`>;
+
   type Language {
-    required code: string;
-    required title: string;
-    required en_titile : string;
-    details: string;
+    required code: str;
+    required title: str;
+    required en_title : str;
+    details: str;
   }
   
   type User {
@@ -63,9 +32,9 @@ module default {
     name: str;
     details: str;
   }
-  
-  type Like {
-    level: integer;
+
+  type Mark {
+    level: int32;
     author: User;
   }
   
@@ -76,4 +45,29 @@ module default {
       rewrite insert using (datetime_of_statement())
     }
   }
+
+  type Word {
+    required word: str;
+    details: str;
+  
+    required language: Language;
+    required author: User {
+      extending authored_with_details;
+    };
+    required multi validators: User {
+      extending authored_with_details;
+    };
+  
+    multi mark: Mark;
+  
+    #created: datetime {
+    #  rewrite insert using (datetime_of_statement())
+    #}
+    #modified: datetime {
+    #  rewrite update using (datetime_of_statement())
+    #}
+  
+    index on (str_lower(.word));
+  }
+
 }
