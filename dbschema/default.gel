@@ -7,7 +7,7 @@ module default {
     # }
   }
 
-   # for Logs - or tests
+   # for Logs ...
    scalar type EventType extending enum<`Create`, `Read`, `Update`, `Delete`>;
 
   type Language {
@@ -30,6 +30,7 @@ module default {
     # };
   }
   
+  # updated
   type Role {
     name: str;
     details: str;
